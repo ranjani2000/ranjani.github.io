@@ -1,0 +1,150 @@
+.multiple-city-info {  
+    background-color: black;
+    border-top: 1px solid var(--primary-black);
+    border-radius: 2em;
+    padding: 10px;
+    position: relative;
+    top: -30px;
+}
+.sticky-climate-options {
+    position: absolute;
+    right: 30px;
+    top: 20px;  
+}
+.option-icon {
+    cursor: pointer;
+    margin: 10px;
+    padding-bottom: 10px;
+    width: 30px;
+}
+.sticky-climate-options .active {
+    border-bottom: 2px solid var(--light-blue-border);
+}
+.display-top {
+    bottom: 30px;
+    font-family: 'Roboto';
+    margin: 10px;
+    position: relative;
+}
+.display-top input[type="number"] {
+    background: var(--bg-input-box);
+    border: none;
+    font-size: 14px;
+    margin-left: 10px;
+    outline: none;
+    text-align: center;
+    width: 40px;
+}
+.display-top input[type=number]::-webkit-inner-spin-button, 
+.display-top input[type=number]::-webkit-outer-spin-button {  
+    cursor: pointer;
+    opacity: 1;
+}
+.weather-flex-cards {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 50px;
+    margin-top: 20px;
+    overflow-y: auto;
+   /* scrollbar-width: none; */
+    padding: 50px;
+    width: calc(100vw - 170px);
+}
+.weather-flex-cards::-webkit-scrollbar {
+    display: none;
+}
+.left-arrow,
+.right-arrow {
+    cursor: pointer;
+    position: absolute;
+    top: 250px;
+    z-index: 2;
+}
+.left-arrow {
+    left:15px;
+}
+.right-arrow {
+    right: 15px;
+}
+.left-arrow-icon,
+.right-arrow-icon {
+    background-color: #d0d0d0;
+    box-sizing: border-box;
+    border-radius: 50%;
+    padding: 8px;
+    transition: width 0.2s;
+    width: 33px;
+}
+.left-arrow-icon:hover {
+    transform: rotate(-10deg);
+    width: 50px;
+} 
+.right-arrow-icon:hover {
+    transform: rotate(10deg);
+    width: 50px;
+}
+.info-card {
+    background: var(--bg-dark-grey-tile) url('../assets/City_icons/kolkata.svg') no-repeat right bottom;
+    background-size: 45% 45%;
+    border: 1px solid var(--primary-black);
+    border-radius: 30px;
+    box-shadow: 2px 2px gray;
+    padding: 20px 50px 40px 50px;
+    transition: 0.3s;
+}
+.info-card:hover {
+        background-color:rgb(89, 131, 247);
+        box-shadow: 10px 5px 8px 2px rgb(53, 52, 52);
+        color: var(--primary-black);
+        transform: scale(1.1);
+        z-index: 1;
+}
+.info-card p {
+    margin-top: 25px;
+    width: max-content;
+}
+.city-info.name {
+    font-family: 'Roboto';
+}
+.name {
+    font-size: 24px;
+    font-weight: 500;
+    padding-right: 30px;
+}
+.weather-icon {
+    padding-left: 20px;
+    position: relative;
+}
+.weather-icon.first-row {
+    font-size: 24px;
+    font-weight: 400;
+}
+.weather-icon.first-row::before {
+    height: 25px;
+    left: -10px;
+    width: 25px;
+}
+.weather-icon::before{
+    animation: swing 3s infinite;
+    background-size: 100% 100%;
+    content: "";
+    height: 20px;
+    left: -5px;
+    position: absolute;
+    top: 0px;
+    width: 20px;
+}
+.weather-icon.sunny::before {    
+    background-image: url('../assets/Weather_icons/sunnyIcon.svg');
+}
+.weather-icon.humidity::before {    
+    background-image: url('../assets/Weather_icons/humidityIcon.svg');
+}
+.weather-icon.percipitation::before {    
+    background-image: url('../assets/Weather_icons/precipitationIcon.svg');
+}
+.info-card .date,
+.info-card  .time {
+    font-size: 18px;
+    font-weight: 500;
+}

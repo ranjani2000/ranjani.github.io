@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+#city-report {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url('../assets/General_icons/background.svg');
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;
+    padding: 2em;
+}
+.select-city {
+    align-items: flex-end;
+    display: grid;
+    grid-gap: 25px;
+    grid-template-columns: auto auto;
+    margin: 10px;
+}
+.city-icon {
+    width: 100px;
+}
+.select-city-input input {
+    background: var(--bg-input-box);
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    max-width: 250px;
+    outline: none;
+    padding: 10px;
+    text-transform: capitalize;
+}
+.select-city-input input::-webkit-calendar-picker-indicator {
+    color: #c4c4c4;
+    cursor: pointer;
+    font-size: 18px;
+    opacity: 100;
+}
+.select-city .time {
+    font-weight: 400;
+}
+.time-stamp {
+    color: var(--pale-yellow-text);
+}
+.hour-min {
+    font-size: 32px;
+}
+.white-text {
+    color: #fff;
+}
+.second {
+    font-size: 20px;
+}
+img.state {
+    bottom: -10px;
+    left: 10px;
+    position: relative;
+    width: 70px;
+}
+.time-stamp .date {
+    font-size: 26px;
+    font-weight: 400;
+    margin: auto;
+}
+.current-weather {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: auto auto;
+    margin: 10px;
+}
+.current-weather h2 {
+    font-size: 28px;
+    padding-top: 0px;
+}
+.t-celcius,
+.t-farenheit,
+.current-weather .humidity,
+.current-weather .percipitation {
+    padding: 0px 10px;
+}
+.current-weather .humidity,
+.current-weather .percipitation {
+    border-left: 2px dotted #979797;
+    height: 7em;   
+}
+.timeline {
+    display: flex;
+    font-size: 20px;
+    flex-wrap: nowrap;
+    margin: 10px 10px 10px 10px;
+}
+.wrapper-time {
+    margin: 40px 25px;
+    text-align: center;
+}
+.wrapper-time .time {
+    height: 30px;
+    padding-bottom: 10px;
+}
+.down {
+    padding-bottom: 10px;;
+}
+.climate-icon {
+    height: 40px;
+    margin: auto;
+    padding: 25px 0px;
+    position: relative;
+    transition: 0.3s;
+    width: 40px;
+}
+.wrapper-time .value {
+    padding-top: 12px;
+}
+.timeline .seperator {
+    opacity: 0.6;
+    padding-top: 90px;
+}

@@ -1,0 +1,371 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="shortcut icon" type="image/png" href="./assets/General_icons/favicon.png">
+    <link rel="stylesheet" href="styles/weather-app-style.css">
+  </head>
+  <body>
+    <!--Container for top section-->
+    <section class="top" id="city-report">
+      <div class="select-city">
+        <div class="city-icon">
+          <img src="./assets/City_icons/kolkata.svg" title="Kolkatta" alt="city icon">
+        </div>
+        <!--Input element to select city-->
+        <form class="select-city-input" title="Select City">
+          <input type="text" list="names" name="city" value="Kolkata">
+            <datalist id="names">
+              <option value="Nome">
+              <option value="NewYork">
+              <option value="Jamaica">
+              <option value="LosAngeles">
+              <option value="Winnipeg">
+              <option value="Juba">
+              <option value="Maseru">
+              <option value="London">
+              <option value="Vienna">
+              <option value="Moscow">
+              <option value="Dublin">
+              <option value="Karachi">
+              <option value="Kolkata">
+              <option value="Yangon">
+              <option value="BangKok">
+              <option value="Seoul">
+              <option value="Anadyr">
+              <option value="BrokenHill">
+              <option value="Perth">
+              <option value="Auckland">
+              <option value="Vostok">1
+              <option value="Troll">
+            </datalist>
+        </form>
+        <div class="blank-icon-space"></div>
+        <!--Time and date-->
+        <div class="time-stamp">
+          <div class="time">
+            <span class="hour-min">10:10</span> 
+            <span class="white-text">:</span>
+            <span class="second">44</span> 
+            <img class="state" title="AM" src="./assets/General_icons/amState.svg" alt="AM/PM state icon">
+          </div>
+          <p class="date white-text" title="March 1, 2020">01-Mar-2020</p>
+        </div>
+      </div>
+      <!--Temperature in celsius & Humidity-->
+      <div class="current-weather">
+        <div class="t-celcius">
+          <h2>Temp &deg;C</h2>
+          <h2><strong>25 C</strong></h2>
+        </div>
+        <div class="humidity">
+          <h2>Humidity</h2>
+          <h2><strong>26</strong>%</h2> 
+        </div>
+        <!--Temperature in farenheit & Percipitation-->
+        <div class="t-farenheit"> 
+          <h2>Temp F</h2>
+          <h2><strong>78 F</strong></h2>
+        </div>
+        <div class="percipitation">
+          <h2>Percipitation</h2>
+          <h2><strong>0</strong>%</h2>  
+        </div>
+      </div>
+      <!--Timeline for next few hours-->
+      <div class="timeline">
+        <div class="wrapper-time">
+          <div class="time">NOW</div>
+          <div class="down">|</div>
+          <div class="climate_icon"><img src="./assets/Weather_icons/cloudyIcon.svg" alt="cloud"></div>
+          <div class="value">6</div>
+        </div>
+        <div class="seperator"> | </div>
+        <div class="wrapper-time">
+          <div class="time">11 AM</div>
+          <div class="down">|</div>
+          <div class="climate_icon"><img src="./assets/Weather_icons/rainyIcon.svg" alt="rain"></div>
+          <div class="value">7</div>
+        </div>
+        <div class="seperator"> | </div>
+        <div class="wrapper-time">
+          <div class="time">12 PM</div>
+          <div class="down">|</div>
+          <div class="climate_icon"><img src="./assets/Weather_icons/windyIcon.svg" alt="wind"></div>
+          <div class="value">7</div>
+        </div>
+        <div class="seperator"> | </div>
+        <div class="wrapper-time">
+          <div class="time">1 PM</div>
+          <div class="down">|</div>
+          <div class="climate_icon"><img src="./assets/Weather_icons/rainyIcon.svg" alt="rain"></div>
+          <div class="value">8</div>
+        </div>
+        <div class="seperator"> | </div>
+        <div class="wrapper-time">
+          <div class="time">2 PM</div>
+          <div class="down">|</div>
+          <div class="climate_icon"><img src="./assets/Weather_icons/windyIcon.svg" alt="wind"></div>
+          <div class="value">8</div>
+        </div>
+        <div class="seperator"> | </div>
+        <div class="wrapper-time">
+          <div class="time">3 PM</div>
+          <div class="down">|</div>
+          <div class="climate_icon"><img src="./assets/Weather_icons/rainyIcon.svg" alt="rain"></div>
+          <div class="value">6</div>
+        </div>
+      </div>
+    </section>
+    <!--Middle part container-->
+    <section class="multiple-city-info">
+        <div class="row"><h2>Top cities around world</h2>
+        <!--Climate options to view-->
+        <div class="sticky-climate-options">
+          <span>
+            <img class="option-icon active"  title="Sunny"src="./assets/Weather_icons/sunnyIcon.svg" alt="Sunny">
+          </span>
+          <span>
+            <img class="option-icon" title="Snow" src="./assets/Weather_icons/snowflakeIcon.svg" alt="Snowy">
+          </span>
+          <span>
+            <img class="option-icon"  title="Rain" src="./assets/Weather_icons/rainyIcon.svg" alt="rainy">
+          </span>
+          <!--Input for display count-->
+          <span class="display-top">
+            <label>Display Top</label>
+            <input type="number"  title="Cards Count"value="4" name="count" min="3" max="10">
+          </span>
+        </div></div>
+      <div class="row" >
+        <!--Backward Arrow-->
+        <div class="left-arrow">
+          <img class="left-arrow-icon" title="Move back" src="./assets/General_icons/backwardArrow.svg" alt="left-arrow">
+        </div>
+        <!--Weather report flux cards-->
+        <div class="weather-flex-cards">
+          <div class="info-card">
+            <p class="city-info">
+              <span class="name">Kolkata</span>
+              <span class="weather-icon sunny first-row">25 &deg;C</span>
+            </p>
+            <p class="time">10:00 AM</p>
+            <p class="date">2-MAR-2020</p>
+            <p class="weather-icon humidity">53%</p>
+            <p class="weather-icon percipitation">10%</p>
+          </div>
+          <div class="info-card">
+            <p class="city-info">
+              <span class="name">Kolkata</span>
+              <span class="weather-icon sunny first-row">25 &deg;C</span>
+            </p>
+            <p class="time">10:00 AM</p>
+            <p class="date">2-MAR-2020</p>
+            <p class="weather-icon humidity">53%</p>
+            <p class="weather-icon percipitation">10%</p>
+          </div>
+          <div class="info-card">
+            <p class="city-info">
+              <span class="name">Kolkata</span>
+              <span class="weather-icon sunny first-row">25 &deg;C</span>
+            </p>
+            <p class="time">10:00 AM</p>
+            <p class="date">2-MAR-2020</p>
+            <p class="weather-icon humidity">53%</p>
+            <p class="weather-icon percipitation">10%</p>
+          </div>
+          <div class="info-card">
+            <p class="city-info">
+              <span class="name">Kolkata</span>
+              <span class="weather-icon sunny first-row">25 &deg;C</span>
+            </p>
+            <p class="time">10:00 AM</p>
+            <p class="date">2-MAR-2020</p>
+            <p class="weather-icon humidity">53%</p>
+            <p class="weather-icon percipitation">10%</p>
+          </div>
+          <div class="right-arrow">
+            <img class="right-arrow-icon" title="Move Forward" src="./assets/General_icons/forwardArrow.svg" alt="right arrow">
+          </div>
+        </div>
+      </div>
+      <!--Bottom  part container-->
+      <section class="continent-info">
+        <div class="row">
+            <h2>Cities across continents at a Glance</h2>
+          <!--Sort options-->
+          <span class="sort">
+            <span class="option">
+              <span><p>Continent Name</p></span>
+              <span><img class="sort-icon" title="Descending Order" src="./assets/General_icons/arrowUp.svg" alt="Descending order"></span>
+            </span>
+            <span class="option">
+              <span><p>Temperature</p></span>
+              <span><img class="sort-icon" title="Ascending Order" src="./assets/General_icons/arrowDown.svg" alt="Ascending order"></span>
+            </span>
+          </span>
+        </div> 
+        <!--Continent Weather Info cards-->
+        <div class="continent-info-cards">
+          <div class="continent-card">
+            <div>
+              <span class="continent-name">Asia</span>
+              <span class="continent-temperature">38 &deg;C</span>
+            </div>
+            <div>
+              <span class="continent-city">Delhi, 10:10 AM</span>
+              <span class="continent-humidity">
+                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
+                <span class="humidity-value">53%</span>
+              </span>
+            </div>
+          </div>
+          <div class="continent-card">
+            <div>
+              <span class="continent-name">Africa</span>
+              <span class="continent-temperature">38 &deg;C</span>
+            </div>
+            <div>
+              <span class="continent-city">Egypt, 10:10 AM</span>
+              <span class="continent-humidity">
+                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
+                <span class="humidity-value">53%</span>
+              </span>
+            </div>
+          </div>
+          <div class="continent-card">
+            <div>
+              <span class="continent-name">Europe</span>
+              <span class="continent-temperature">26 &deg;C</span>
+            </div>
+            <div>
+              <span class="continent-city">London, 10:10 AM</span>
+              <span class="continent-humidity">
+                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
+                <span class="humidity-value">53%</span>
+              </span>
+            </div>
+          </div>
+          <div class="continent-card">
+            <div>
+              <span class="continent-name">Asia</span>
+              <span class="continent-temperature">37 &deg;C</span>
+            </div>
+            <div>
+              <span class="continent-city">Chennai, 10:10 AM</span>
+              <span class="continent-humidity">
+                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
+                <span class="humidity-value">53%</span>
+              </span>
+            </div>
+          </div>
+          <div class="continent-card">
+            <div>
+              <span class="continent-name">Africa</span>
+              <span class="continent-temperature">32 &deg;C</span>
+            </div>
+            <div>
+              <span class="continent-city">Egypt, 10:10 AM</span>
+              <span class="continent-humidity">
+                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
+                <span class="humidity-value">53%</span>
+              </span>
+            </div>
+          </div>
+          <div class="continent-card">
+            <div>
+              <span class="continent-name">Europe</span>
+              <span class="continent-temperature">22 &deg;C</span>
+            </div>
+            <div>
+              <span class="continent-city">London, 10:10 AM</span>
+              <span class="continent-humidity">
+                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
+                <span class="humidity-value">53%</span>
+              </span>
+            </div>
+          </div>
+          <div class="continent-card">
+            <div>
+              <span class="continent-name">Asia</span>
+              <span class="continent-temperature">36 &deg;C</span>
+            </div>
+            <div>
+              <span class="continent-city">Chennai, 10:10 AM</span>
+              <span class="continent-humidity">
+                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
+                <span class="humidity-value">53%</span>
+              </span>
+            </div>
+          </div>
+          <div class="continent-card">
+            <div>
+              <span class="continent-name">Europe</span>
+              <span class="continent-temperature">30 &deg;C</span>
+            </div>
+            <div>
+              <span class="continent-city">London, 10:10 AM</span>
+              <span class="continent-humidity">
+                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
+                <span class="humidity-value">53%</span>
+              </span>
+            </div>
+          </div>
+          <div class="continent-card">
+            <div>
+              <span class="continent-name">South America</span>
+              <span class="continent-temperature">35 &deg;C</span>
+            </div>
+            <div>
+              <span class="continent-city">Brazil, 10:10 AM</span>
+              <span class="continent-humidity">
+                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
+                <span class="humidity-value">53%</span>
+              </span>
+            </div>
+          </div>
+          <div class="continent-card">
+            <div>
+              <span class="continent-name">Asia</span>
+              <span class="continent-temperature">36 &deg;C</span>
+            </div>
+            <div>
+              <span class="continent-city">Delhi, 10:10 AM</span>
+              <span class="continent-humidity">
+                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
+                <span class="humidity-value">53%</span>
+              </span>
+            </div>
+          </div>
+          <div class="continent-card">
+            <div>
+              <span class="continent-name">Europe</span>
+              <span class="continent-temperature">28 &deg;C</span>
+            </div>
+            <div>
+              <span class="continent-city">London, 10:10 AM</span>
+              <span class="continent-humidity">
+                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
+                <span class="humidity-value">53%</span>
+              </span>
+            </div>
+          </div>
+          <div class="continent-card">
+            <div>
+              <span class="continent-name">South America</span>
+              <span class="continent-temperature">32 &deg;C</span>
+            </div>
+            <div>
+              <span class="continent-city">Brazil, 10:10 AM</span>
+              <span class="continent-humidity">
+                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
+                <span class="humidity-value">53%</span>
+              </span>
+            </div>
+          </div>
+        </div> 
+      </section>        
+    </section>
+  </body>
+</html>

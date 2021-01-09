@@ -1,0 +1,148 @@
+@import url('vars.css');
+@import url('gfonts.css');
+@import url('top.css');
+@import url('middle.css');
+@import url('bottom.css');
+body {
+    background: url('../assets/General_icons/background.svg');
+    background-size: 100%; 
+}
+body,
+h2,input
+{
+    font-weight: 100;
+}
+body,
+input {
+    color: var(--primary-white);
+}
+.top {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: 'Roboto';
+    justify-content: space-evenly;
+}
+@keyframes swing {
+    0% {
+      transform: rotateY(0);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+}
+.option p {
+    font-size: 24px;
+}
+
+/*Laptop Screen - 1024px */
+@media screen and (max-width: 1024px) {
+    .continent-info {
+        padding: 20px;
+    }
+    .continent-info > .row {
+        justify-content: center;
+    }
+    .continent-info h2 {
+        font-size: 28px;
+        line-height: 40px;
+        text-align: center;
+    }
+    .option p{
+        font-size: 24px;
+    }
+    .sort-icon {
+        position: relative;
+        top: -0px;
+        width: 15px;
+    }
+}
+/*Screen size 950px*/
+@media screen and (max-width: 950px) {
+    .sticky-climate-options {
+        left: 50%;
+        position: absolute;
+        top: 50px;
+    }
+}
+/*Tab Screen - 768px*/
+@media screen and (max-width: 768px) {
+    .current-weather div {
+        text-align: center;
+    }
+    .timeline {
+        margin-top: 30px;
+    }
+    .wrapper-time {
+        margin: 5px 10px;
+    }
+    .wrapper-time .time {
+        font-size: 16px;
+    }
+    .sticky-climate-options {
+        left: 3em;
+        margin-top: 25px;
+        position: sticky;      
+    }
+    .display-top {
+        font-size: 18px;
+    }
+    .left-arrow,
+    .right-arrow {
+        position:absolute;
+        top: 330px;
+    }
+    .continents-info h2 {
+        font-size: 26px;
+    }
+    .option p{
+        font-size: 20px;
+    }
+    .sort-icon {
+        position: relative;
+        top: -10px;
+        width: 20px;
+    }
+}
+/*Mobile screen large -425px*/
+@media screen and (max-width: 425px) { 
+    .select-city {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+    .time-stamp {
+        text-align: center;
+    }
+    .timeline {
+        margin-top: 10px;
+    }
+    .wrapper-time {
+        margin: 8px;
+    }
+    .wrapper-time .time {
+        font-size: 14px;
+    }
+    .weather-flex-cards {
+        width: calc(100vw - 100px);
+    }
+   .info-card {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .continent-info h2 {
+        font-size: 24px;
+    }
+    .option p{
+        font-size: 14px;
+    }
+    .sort-icon {
+        width: 10px;
+    }
+}
