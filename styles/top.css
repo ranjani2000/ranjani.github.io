@@ -15,6 +15,9 @@
 .city-icon {
     width: 100px;
 }
+.city-icon img {
+    width: 100%;
+}
 .select-city-input input {
     background: var(--bg-input-box);
     border: none;
@@ -95,10 +98,10 @@ img.state {
 .down {
     padding-bottom: 10px;;
 }
-.climate-icon {
+.climate_icon {
     height: 40px;
     margin: auto;
-    padding: 25px 0px;
+    padding: 10px 0px;
     position: relative;
     transition: 0.3s;
     width: 40px;
@@ -108,5 +111,5 @@ img.state {
 }
 .timeline .seperator {
     opacity: 0.6;
-    padding-top: 90px;
+    padding-top: 100px;
 }

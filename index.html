@@ -5,41 +5,21 @@
     <title>Weather App</title>
     <link rel="shortcut icon" type="image/png" href="./assets/General_icons/favicon.png">
     <link rel="stylesheet" href="styles/weather-app-style.css">
+    <script type="module" src="./scripts/weather-app-script.js" defer></script>
   </head>
   <body>
     <!--Container for top section-->
     <section class="top" id="city-report">
       <div class="select-city">
         <div class="city-icon">
-          <img src="./assets/City_icons/kolkata.svg" title="Kolkatta" alt="city icon">
+          <img src="" title="" alt="city icon">
         </div>
         <!--Input element to select city-->
-        <form class="select-city-input" title="Select City">
-          <input type="text" list="names" name="city" value="Kolkata">
-            <datalist id="names">
-              <option value="Nome">
-              <option value="NewYork">
-              <option value="Jamaica">
-              <option value="LosAngeles">
-              <option value="Winnipeg">
-              <option value="Juba">
-              <option value="Maseru">
-              <option value="London">
-              <option value="Vienna">
-              <option value="Moscow">
-              <option value="Dublin">
-              <option value="Karachi">
-              <option value="Kolkata">
-              <option value="Yangon">
-              <option value="BangKok">
-              <option value="Seoul">
-              <option value="Anadyr">
-              <option value="BrokenHill">
-              <option value="Perth">
-              <option value="Auckland">
-              <option value="Vostok">1
-              <option value="Troll">
+        <form class="select-city-input" title="Select a City" onsubmit="return false">
+          <input type="text" list="names" name="city" id="city-names" placeholder="Select City" onchange="validate()">
+            <datalist id="names"> 
             </datalist>
+            <div id="invalid-city">*Select a valid City Input</div>
         </form>
         <div class="blank-icon-space"></div>
         <!--Time and date-->
@@ -48,9 +28,9 @@
             <span class="hour-min">10:10</span> 
             <span class="white-text">:</span>
             <span class="second">44</span> 
-            <img class="state" title="AM" src="./assets/General_icons/amState.svg" alt="AM/PM state icon">
+            <img class="state" title="" src="./assets/General_icons/amState.svg" alt="AM/PM state icon">
           </div>
-          <p class="date white-text" title="March 1, 2020">01-Mar-2020</p>
+          <p class="date white-text" title="">01-Mar-2020</p>
         </div>
       </div>
       <!--Temperature in celsius & Humidity-->
@@ -69,7 +49,7 @@
           <h2><strong>78 F</strong></h2>
         </div>
         <div class="percipitation">
-          <h2>Percipitation</h2>
+          <h2>Precipitation</h2>
           <h2><strong>0</strong>%</h2>  
         </div>
       </div>
@@ -142,7 +122,7 @@
         <!--Backward Arrow-->
         <div class="left-arrow">
           <img class="left-arrow-icon" title="Move back" src="./assets/General_icons/backwardArrow.svg" alt="left-arrow">
-        </div>
+        </div><div>
         <!--Weather report flux cards-->
         <div class="weather-flex-cards">
           <div class="info-card">
@@ -184,7 +164,7 @@
             <p class="date">2-MAR-2020</p>
             <p class="weather-icon humidity">53%</p>
             <p class="weather-icon percipitation">10%</p>
-          </div>
+          </div></div>
           <div class="right-arrow">
             <img class="right-arrow-icon" title="Move Forward" src="./assets/General_icons/forwardArrow.svg" alt="right arrow">
           </div>
