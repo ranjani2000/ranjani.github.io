@@ -17,7 +17,7 @@ export function timestamp(timeZone) {
     'seconds': seconds,
     'minutes': minutes,
     'hours': (hours%12 == 0? "12": hours%12).toString(),
-    'hours':(hours%12<10 ? '0'+hours%12 : hours%12),
+    'hours':(hours<10 ? '0'+hours : hours),
     'amPm' : amPm.toLowerCase(),
     'date': date,
     'month': month,

@@ -164,4 +164,126 @@ import { citydata } from './city-data.js';
             </div>
       `;
   }
-  
+  //user preferred weather 
+  //Options fetch
+  let optedweather = document.querySelectorAll('.option-icon');
+  let viewcount = document.querySelector('.display-top input');
+  let cards = document.querySelector('.weather-flex-cards');
+  let icon = document.querySelector('.option-icon.active');
+  let weathertype = [];
+  updateweather.call();
+  setInterval(updateweather, 1000*60);
+  function updateweather()
+  {
+    weathertype = [];
+    city.then(function(data){
+      for(let city in data){
+        weathertype.push({
+          cityName: city,
+          type: weather(
+            data[city].temperature.slice(0, -2),
+            data[city].humidity.slice(0, -1),
+            data[city].precipitation.slice(0, -1),
+            )
+        });
+      };
+      cityweatherinfo();
+    });
+  }
+  //differentiate weather category
+  function weather(temperature, humidity, precipitation){
+    if(temperature>28 && humidity < 50 && precipitation>=50)
+    {
+      return 'sunny';
+    }
+    else if(temperature>19 && humidity > 50 && precipitation < 50) 
+    {
+      return 'cloudy';
+    }
+    else if(temperature<20 && humidity >= 50)
+    {
+      return 'rainy';
+    } 
+  }
+  viewcount.addEventListener('change', cityweatherinfo);
+  //city count update
+  function cityweatherinfo()
+  {
+    if(viewcount.value>10)
+    {
+      viewcount.value = 10;
+    }
+    else if(viewcount.value<3) 
+    {
+      viewcount.value = 3;
+    }
+     let type = icon.getAttribute('data-category');
+     let showinfo = weathertype.filter( x => x.type == type);
+     cards.innerHTML = "";
+     city.then((data) => {
+     let count = 0;
+      for(let city of showinfo) {
+        cards.innerHTML += infocards(
+          data[city.cityName].cityName,
+          data[city.cityName].temperature,
+          data[city.cityName].humidity,
+          data[city.cityName].precipitation,
+          data[city.cityName].timeZone
+        );
+        if(++count == viewcount.value)
+          break;
+      }
+      scroll();
+    });
+    //weather-info cards
+    function infocards(cityName, tempC, humidity, precipitation, timeZone) {
+      let dateTime = timestamp(timeZone);
+      return `
+      <div class="info-card" style="background-image: url('./assets/City_icons/${cityName.toLowerCase()}.svg')">
+        <p class="city-info">
+          <span class="name">${cityName}</span>
+          <span class="weather-icon ${type} first-row">${tempC}</span>
+        </p>
+        <p class="time">${dateTime.hours}:${dateTime.minutes} ${dateTime.amPm.toUpperCase()}</p>
+        <p class="date">${dateTime.date}-${dateTime.month}-${dateTime.year}</p>
+        <p class="weather-icon humidity">${humidity}</p>
+        <p class="weather-icon percipitation">${precipitation}</p>
+      </div>
+      `;
+    }
+  }
+  //updation
+  function change()
+  {
+    icon.classList.remove('active');
+    this.classList.add('active');
+    icon = this;
+    cityweatherinfo();
+  }
+  //Scroll buttons
+  let movefront = document.querySelector(".right-arrow");
+  let moveback = document.querySelector(".left-arrow");
+  movefront.addEventListener('click', function() {
+    cards.scrollBy(500,0);
+  });
+  moveback.addEventListener('click', function(){
+    cards.scrollBy(-500,0);
+  });
+  optedweather.forEach(function(ele) {
+    ele.addEventListener('click', change);
+  })
+  window.addEventListener('resize', scroll);
+  //displaying of scroll arrows
+  function scroll()
+  {
+    if(cards.scrollWidth == cards.clientWidth) {
+      movefront.style.display = 'none';
+      moveback.style.display = 'none';
+      cards.style.justifyContent = 'space-evenly';
+    }
+    else {
+      movefront.style.display = 'inline';
+      moveback.style.display = 'inline';
+      cards.style.justifyContent = 'flex-start';
+    }
+  }
