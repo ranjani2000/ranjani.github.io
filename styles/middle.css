@@ -2,6 +2,7 @@
     background-color: black;
     border-top: 1px solid var(--primary-black);
     border-radius: 2em;
+    font-family: 'Roboto',sans-serif;
     padding: 10px;
     position: relative;
     top: -30px;
@@ -136,6 +137,12 @@
 }
 .weather-icon.sunny::before {    
     background-image: url('../assets/Weather_icons/sunnyIcon.svg');
+}
+.weather-icon.cloudy::before {    
+    background-image: url('../assets/Weather_icons/snowflakeIcon.svg');
+}
+.weather-icon.rainy::before {    
+    background-image: url('../assets/Weather_icons/rainyIcon.svg');
 }
 .weather-icon.humidity::before {    
     background-image: url('../assets/Weather_icons/humidityIcon.svg');
