@@ -34,7 +34,7 @@
     justify-self: center;
     padding: 15px;
     transition: 0.3s;
-    width: 300px;
+    width: 320px;
 }
 .continent-card > p:nth-child(2) {
     padding-top: 20px;
@@ -55,10 +55,6 @@
 .continent-temperature,
 .continent-humidity {
     float: right;
-}
-.continent-humidity {
-    left: 3em;
-    position:relative;
 }
 .humidity-icon {
     animation: swing 3s infinite;
