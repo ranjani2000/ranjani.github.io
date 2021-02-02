@@ -162,5 +162,107 @@ import { citydata } from './city-data.js';
               <div class="value">${temp}</div>
             </div>
       `;
+  } 
+  // continent wise weather info
+  let continentcards = document.querySelector('.continent-info-cards');
+  let temperaturewise = document.querySelector('.sort-icon.temperature');
+  let continentwise = document.querySelector('.sort-icon.continent');
+  temperaturewise.addEventListener('click', sortinfo);
+  continentwise.addEventListener('click', sortinfo);
+  let cities;
+  // fetch details
+  city.then(function(data) {
+    cities = Object.keys(data).reduce((accumulator, city) => {
+      let continent = data[city].timeZone.split('/')[0];
+      if(accumulator.has(continent)) {
+        let citylist = accumulator.get(continent);
+        citylist.push(city);
+        accumulator.set(continent, citylist.sort((a, b) => {
+          return data[a].temperature.slice(0, -2) - data[b].temperature.slice(0, -2)
+        }));
+      }
+      else {
+        accumulator.set(continent, [city]);
+      }
+      return accumulator;
+    }, new Map());
+  });
+  // Sorting cards
+  function sortinfo() {
+    if(this.getAttribute('src').includes('arrowUp')) {
+      this.setAttribute('src', this.getAttribute('src').replace('arrowUp', 'arrowDown'));
+      this.setAttribute('sort-option', 'descending');
+      this.setAttribute('title', 'Sort in Ascending Order');
+      this.setAttribute('alt', 'Descending Order');
+    }
+    else {
+      this.setAttribute('src', this.getAttribute('src').replace('arrowDown', 'arrowUp'));
+      this.setAttribute('sort-option', 'ascending');
+      this.setAttribute('title', 'Sort in Descending Order');
+      this.setAttribute('alt', 'Ascending Order');
+    }
+    updatecontinentcard.call();
   }
-  
+  updatecontinentcard.apply();
+  setInterval(updatecontinentcard, 1000*60);
+  function updatecontinentcard() {
+    let continentsort = continentwise.getAttribute('sort-option');
+    let temperaturesort = temperaturewise.getAttribute('sort-option');
+    city.then(function(data){
+      data = Object.keys(data).map((key)=>{
+        return {
+            key: key,
+            cityName: data[key].cityName,
+            humidity: data[key].humidity,
+            temperature: data[key].temperature,
+            timeZone: data[key].timeZone,
+          }
+      }).reduce((acc, val) => {
+        acc[val['key']] = {
+          cityName: val['cityName'],
+          humidity: val['humidity'],
+          temperature: val['temperature'],
+          timeZone: val['timeZone'],
+        }
+        return acc;
+      }, {})
+      let continents = [...cities.keys()];
+      continents.sort();
+      if(continentsort!='ascending') {
+        continents.reverse();
+      }
+      continentcards.innerHTML = "";
+      let count = 0;
+      for(let continent of continents) {
+        let citieslist = [...cities.get(continent)];
+        if(temperaturesort != 'ascending') {
+          citieslist.reverse();
+        }
+        for(let city of citieslist) {
+          continentcards.innerHTML += continentCard(city);
+          if (++count==12)
+            break;
+        }
+        if (count==12)
+            break;
+        function continentCard(city) {
+          let dateTime = timestamp(data[city].timeZone);
+          return `
+          <div class="continent-card">
+            <div>
+              <span class="continent-name">${continent}</span>
+              <span class="continent-temperature">${data[city].temperature}</span>
+            </div>
+            <p>
+              <span class="continent-city">${data[city].cityName}, ${dateTime.hours}:${dateTime.minutes} ${dateTime.amPm.toUpperCase()}</span>
+              <span class="continent-humidity">
+                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
+                <span class="humidity-value">${data[city].humidity}</span>
+              </span>
+            </p>
+          </div>
+          `;
+        }
+      }
+    });
+  }
