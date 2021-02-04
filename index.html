@@ -15,11 +15,12 @@
           <img src="" title="" alt="city icon">
         </div>
         <!--Input element to select city-->
-        <form class="select-city-input" title="Select a City" onsubmit="return false">
-          <input type="text" list="names" name="city" id="city-names" placeholder="Select City">
-            <datalist id="city-names"> 
+        <form class="select-city-input" title="Select a City" onsubmit="return false" autocomplete="off">
+          <input type="text" list="city-names" name="city" id="city-name" placeholder="Select City">
+            <datalist id="city-names">
+              
             </datalist>
-            <div id="invalid-city">*Select a valid City Input</div>
+            <div id="invalid-city" style="color: red;">*Select a Valid City Name</div>
         </form>
         <div class="blank-icon-space"></div>
         <!--Time and date-->
@@ -104,13 +105,13 @@
         <!--Climate options to view-->
         <div class="sticky-climate-options">
           <span>
-            <img class="option-icon active" data-category="sunny" title="Sunny"src="./assets/Weather_icons/sunnyIcon.svg" alt="Sunny">
+            <img class="option-icon active"  title="Sunny"src="./assets/Weather_icons/sunnyIcon.svg" alt="Sunny">
           </span>
           <span>
-            <img class="option-icon" data-category="cloudy" title="Snow" src="./assets/Weather_icons/snowflakeIcon.svg" alt="Snowy">
+            <img class="option-icon" title="Snow" src="./assets/Weather_icons/snowflakeIcon.svg" alt="Snowy">
           </span>
           <span>
-            <img class="option-icon"  data-category="rainy" title="Rain" src="./assets/Weather_icons/rainyIcon.svg" alt="rainy">
+            <img class="option-icon"  title="Rain" src="./assets/Weather_icons/rainyIcon.svg" alt="rainy">
           </span>
           <!--Input for display count-->
           <span class="display-top">
@@ -122,8 +123,7 @@
         <!--Backward Arrow-->
         <div class="left-arrow">
           <img class="left-arrow-icon" title="Move back" src="./assets/General_icons/backwardArrow.svg" alt="left-arrow">
-        </div>
-        <div>
+        </div><div>
         <!--Weather report flux cards-->
         <div class="weather-flex-cards">
           <div class="info-card">
@@ -179,11 +179,11 @@
           <span class="sort">
             <span class="option">
               <span><p>Continent Name</p></span>
-              <span><img class="sort-icon continent" data-option="continent" title="Descending Order" src="./assets/General_icons/arrowUp.svg" alt="Descending order"></span>
+              <span><img class="sort-icon continent" data-option="continent" title="Click to sort in Ascending Order" src="./assets/General_icons/arrowUp.svg" alt="Descending order"></span>
             </span>
             <span class="option">
               <span><p>Temperature</p></span>
-              <span><img class="sort-icon temperature" data-option="temperature" title="Ascending Order" src="./assets/General_icons/arrowDown.svg" alt="Ascending order"></span>
+              <span><img class="sort-icon temperature" data-option="temperature" title="Click to sort in Ascending Order" src="./assets/General_icons/arrowUp.svg" alt="Ascending order"></span>
             </span>
           </span>
         </div> 
