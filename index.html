@@ -105,72 +105,49 @@
         <!--Climate options to view-->
         <div class="sticky-climate-options">
           <span>
-            <img class="option-icon active"  title="Sunny"src="./assets/Weather_icons/sunnyIcon.svg" alt="Sunny">
+            <img class="option-icon active" data-category="sunny" title="Sunny"src="./assets/Weather_icons/sunnyIcon.svg" alt="Sunny">
           </span>
           <span>
-            <img class="option-icon" title="Snow" src="./assets/Weather_icons/snowflakeIcon.svg" alt="Snowy">
+            <img class="option-icon" data-category="cloudy" title="Snow" src="./assets/Weather_icons/snowflakeIcon.svg" alt="Snowy">
           </span>
           <span>
-            <img class="option-icon"  title="Rain" src="./assets/Weather_icons/rainyIcon.svg" alt="rainy">
+            <img class="option-icon"  data-category="rainy" title="Rain" src="./assets/Weather_icons/rainyIcon.svg" alt="rainy">
           </span>
           <!--Input for display count-->
           <span class="display-top">
             <label>Display Top</label>
-            <input type="number"  title="Cards Count"value="4" name="count" min="3" max="10">
+            <input type="number"  title="Enter the Cards Count"value="4" name="count" min="3" max="10">
           </span>
         </div></div>
       <div class="row" >
         <!--Backward Arrow-->
         <div class="left-arrow">
-          <img class="left-arrow-icon" title="Move back" src="./assets/General_icons/backwardArrow.svg" alt="left-arrow">
-        </div><div>
+          <img class="left-arrow-icon" title="Move backward through cards" src="./assets/General_icons/backwardArrow.svg" alt="left-arrow">
+        </div>
         <!--Weather report flux cards-->
         <div class="weather-flex-cards">
-          <div class="info-card">
-            <p class="city-info">
-              <span class="name">Kolkata</span>
-              <span class="weather-icon sunny first-row">25 &deg;C</span>
-            </p>
-            <p class="time">10:00 AM</p>
-            <p class="date">2-MAR-2020</p>
-            <p class="weather-icon humidity">53%</p>
-            <p class="weather-icon percipitation">10%</p>
-          </div>
-          <div class="info-card">
-            <p class="city-info">
-              <span class="name">Kolkata</span>
-              <span class="weather-icon sunny first-row">25 &deg;C</span>
-            </p>
-            <p class="time">10:00 AM</p>
-            <p class="date">2-MAR-2020</p>
-            <p class="weather-icon humidity">53%</p>
-            <p class="weather-icon percipitation">10%</p>
-          </div>
-          <div class="info-card">
-            <p class="city-info">
-              <span class="name">Kolkata</span>
-              <span class="weather-icon sunny first-row">25 &deg;C</span>
-            </p>
-            <p class="time">10:00 AM</p>
-            <p class="date">2-MAR-2020</p>
-            <p class="weather-icon humidity">53%</p>
-            <p class="weather-icon percipitation">10%</p>
-          </div>
-          <div class="info-card">
-            <p class="city-info">
-              <span class="name">Kolkata</span>
-              <span class="weather-icon sunny first-row">25 &deg;C</span>
-            </p>
-            <p class="time">10:00 AM</p>
-            <p class="date">2-MAR-2020</p>
-            <p class="weather-icon humidity">53%</p>
-            <p class="weather-icon percipitation">10%</p>
-          </div></div>
-          <div class="right-arrow">
-            <img class="right-arrow-icon" title="Move Forward" src="./assets/General_icons/forwardArrow.svg" alt="right arrow">
-          </div>
+
+        </div>
+        <div class="right-arrow">
+            <img class="right-arrow-icon" title="Move Forward through cards" src="./assets/General_icons/forwardArrow.svg" alt="right arrow">
         </div>
       </div>
+      <!--Bottom  part container-->
+      <section class="continent-info">
+        <div class="row">
+            <h2>Cities across continents at a Glance</h2>
+          <!--Sort options-->
+          <span class="sort">
+            <span class="option">
+              <span><p>Continent Name</p></span>
+              <span><img class="sort-icon" title="Descending Order" src="./assets/General_icons/arrowUp.svg" alt="Descending order"></span>
+            </span>
+            <span class="option">
+              <span><p>Temperature</p></span>
+              <span><img class="sort-icon" title="Ascending Order" src="./assets/General_icons/arrowDown.svg" alt="Ascending order"></span>
+            </span>
+          </span>
+        </div> 
       <!--Bottom  part container-->
       <section class="continent-info">
         <div class="row">
