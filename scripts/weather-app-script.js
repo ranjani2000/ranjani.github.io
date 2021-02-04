@@ -165,123 +165,139 @@ function forecast(temp, timediff) {
             </div>
       `;
 }
-let continentcards = document.querySelector(".continent-info-cards");
-let temperaturewise = document.querySelector(".sort-icon.temperature");
-let continentwise = document.querySelector(".sort-icon.continent");
-temperaturewise.addEventListener("click", sortinfo);
-continentwise.addEventListener("click", sortinfo);
-let cities;
-city.then(function (data) {
-  cities = Object.keys(data).reduce((accumulator, city) => {
-    let continent = data[city].timeZone.split("/")[0];
-    if (accumulator.has(continent)) {
-      let citylist = accumulator.get(continent);
-      citylist.push(city);
-      accumulator.set(
-        continent,
-        citylist.sort((a, b) => {
-          return (
-            data[a].temperature.slice(0, -2) - data[b].temperature.slice(0, -2)
-          );
-        })
-      );
-    } else {
-      accumulator.set(continent, [city]);
-    }
-    return accumulator;
-  }, new Map());
-});
-function sortinfo() {
-  if (this.getAttribute("src").includes("arrowDown")) {
-    this.setAttribute(
-      "src",
-      this.getAttribute("src").replace("arrowDown", "arrowUp")
-    );
-    this.setAttribute("sort-option", "descending");
-    this.setAttribute("title", "Click to sort in Ascending Order");
-    this.setAttribute("alt", "Descending Order");
-  } else {
-    this.setAttribute(
-      "src",
-      this.getAttribute("src").replace("arrowUp", "arrowDown")
-    );
-    this.setAttribute("sort-option", "ascending");
-    this.setAttribute("title", "Click to sort in Descending Order");
-    this.setAttribute("alt", "Ascending Order");
-  }
-  updatecontinentcard.call();
-}
-updatecontinentcard.apply();
-setInterval(updatecontinentcard, 1000 * 60);
+let optedweather = document.querySelectorAll(".option-icon");
+let viewcount = document.querySelector(".display-top input");
+let cards = document.querySelector(".weather-flex-cards");
+let icon = document.querySelector(".option-icon.active");
+let weathertype = [];
+updateweather.call();
+setInterval(updateweather, 1000 * 60);
 /**
- * Function to sort the cards and update data
+ * Function updates information based on weather category
  */
-function updatecontinentcard() {
-  let continentsort = continentwise.getAttribute("sort-option");
-  let temperaturesort = temperaturewise.getAttribute("sort-option");
+function updateweather() {
+  weathertype = [];
   city.then(function (data) {
-    data = Object.keys(data)
-      .map((key) => {
-        return {
-          key: key,
-          cityName: data[key].cityName,
-          humidity: data[key].humidity,
-          temperature: data[key].temperature,
-          timeZone: data[key].timeZone,
-        };
-      })
-      .reduce((acc, val) => {
-        acc[val["key"]] = {
-          cityName: val["cityName"],
-          humidity: val["humidity"],
-          temperature: val["temperature"],
-          timeZone: val["timeZone"],
-        };
-        return acc;
-      }, {});
-    let continents = [...cities.keys()];
-    continents.sort();
-    if (continentsort != "ascending") {
-      continents.reverse();
+    for (let city in data) {
+      weathertype.push({
+        cityName: city,
+        type: weather(
+          data[city].temperature.slice(0, -2),
+          data[city].humidity.slice(0, -1),
+          data[city].precipitation.slice(0, -1)
+        ),
+      });
     }
-    continentcards.innerHTML = "";
-    let count = 0;
-    for (let continent of continents) {
-      let citieslist = [...cities.get(continent)];
-      if (temperaturesort != "ascending") {
-        citieslist.reverse();
-      }
-      for (let city of citieslist) {
-        continentcards.innerHTML += continentCard(city);
-        if (++count == 12) break;
-      }
-      if (count == 12) break;
-      /**
-       *
-       * @param {string} city -name of city
-       */
-      function continentCard(city) {
-        let dateTime = timestamp(data[city].timeZone);
-        return `
-          <div class="continent-card">
-            <div>
-              <span class="continent-name">${continent}</span>
-              <span class="continent-temperature">${
-                data[city].temperature
-              }</span>
-            </div>
-            <p>
-              <span class="continent-city">${data[city].cityName}, ${
-          dateTime.hours
-        }:${dateTime.minutes} ${dateTime.amPm.toUpperCase()}</span>
-              <span class="continent-humidity">
-                <img class="humidity-icon" title="Humidity" src="./assets/Weather_icons/humidityIcon.svg" alt="Humidity icon">
-                <span class="humidity-value">${data[city].humidity}</span>
-              </span>
-            </p>
-          </div>
-          `;
-      }
-    }
+    cityweatherinfo();
   });
+}
+/**
+ *
+ * @param {number} temperature - current weather
+ * @param {number} humidity - Current humidity
+ * @param {number} precipitation - Current precipitation
+ */
+function weather(temperature, humidity, precipitation) {
+  if (temperature > 28 && humidity < 50 && precipitation >= 50) {
+    return "sunny";
+  } else if (temperature > 19 && humidity > 50 && precipitation < 50) {
+    return "cloudy";
+  } else if (temperature < 20 && humidity >= 50) {
+    return "rainy";
+  }
+}
+viewcount.addEventListener("change", cityweatherinfo);
+/**
+ * Function updates the type of weather
+ */
+function cityweatherinfo() {
+  if (viewcount.value > 10) {
+    viewcount.value = 10;
+  } else if (viewcount.value < 3) {
+    viewcount.value = 3;
+  }
+  let type = icon.getAttribute("data-category");
+  let showinfo = weathertype.filter((x) => x.type == type);
+  cards.innerHTML = "";
+  city.then((data) => {
+    let count = 0;
+    for (let city of showinfo) {
+      cards.innerHTML += infocards(
+        data[city.cityName].cityName,
+        data[city.cityName].temperature,
+        data[city.cityName].humidity,
+        data[city.cityName].precipitation,
+        data[city.cityName].timeZone
+      );
+      if (++count == viewcount.value) break;
+    }
+    scroll();
+  });
+  /**
+   * Functions displays the weather information cards
+   * @param {string} cityName
+   * @param {number} tempC
+   * @param {number} humidity
+   * @param {number} precipitation
+   * @param {string} timeZone
+   */
+  function infocards(cityName, tempC, humidity, precipitation, timeZone) {
+    let dateTime = timestamp(timeZone);
+    return `
+      <div class="info-card" style="background-image: url('./assets/City_icons/${cityName.toLowerCase()}.svg')">
+        <p class="city-info">
+          <span class="name">${cityName}</span>
+          <span class="weather-icon ${type} first-row">${tempC}</span>
+        </p>
+        <p class="time">${dateTime.hours}:${
+      dateTime.minutes
+    } ${dateTime.amPm.toUpperCase()}</p>
+        <p class="date">${dateTime.date}-${dateTime.month}-${dateTime.year}</p>
+        <p class="weather-icon humidity">${humidity}</p>
+        <p class="weather-icon percipitation">${precipitation}</p>
+      </div>
+      `;
+  }
+}
+optedweather.forEach(function (ele) {
+  ele.addEventListener("click", change);
+});
+/**
+ * Function that clears the existing weather list
+ */
+function change() {
+  icon.classList.remove("active");
+  this.classList.add("active");
+  icon = this;
+  cityweatherinfo();
+}
+let movefront = document.querySelector(".right-arrow");
+let moveback = document.querySelector(".left-arrow");
+movefront.addEventListener("click", function () {
+  cards.scrollBy(500, 0);
+});
+moveback.addEventListener("click", function () {
+  cards.scrollBy(-500, 0);
+});
+window.addEventListener("resize", scroll);
+cards.addEventListener("scroll", scroll);
+function scroll() {
+  if (cards.scrollWidth == cards.clientWidth) {
+    movefront.style.display = "none";
+    moveback.style.display = "none";
+    return;
+  } else if (
+    cards.scrollWidth <=
+    Math.round(cards.clientWidth + cards.scrollLeft)
+  ) {
+    movefront.style.display = "none";
+    moveback.style.display = "inline";
+  } else if (cards.scrollLeft == 0) {
+    movefront.style.display = "inline";
+    moveback.style.display = "none";
+  } else {
+    movefront.style.display = "inline";
+    moveback.style.display = "inline";
+  }
+  cards.style.justifyContent = "flex-start";
 }

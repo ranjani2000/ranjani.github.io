@@ -46,7 +46,6 @@
     gap: 50px;
     margin-top: 20px;
     overflow-y: auto;
-   /* scrollbar-width: none; */
     padding: 50px;
     width: calc(100vw - 170px);
 }
@@ -57,7 +56,7 @@
 .right-arrow {
     cursor: pointer;
     position: absolute;
-    top: 250px;
+    top: 290px;
     z-index: 2;
 }
 .left-arrow {
@@ -71,16 +70,12 @@
     background-color: #d0d0d0;
     box-sizing: border-box;
     border-radius: 50%;
-    padding: 8px;
+    padding: 10px;
     transition: width 0.2s;
     width: 33px;
 }
-.left-arrow-icon:hover {
-    transform: rotate(-10deg);
-    width: 50px;
-} 
+.left-arrow-icon:hover,
 .right-arrow-icon:hover {
-    transform: rotate(10deg);
     width: 50px;
 }
 .info-card {
@@ -88,13 +83,13 @@
     background-size: 45% 45%;
     border: 1px solid var(--primary-black);
     border-radius: 30px;
-    box-shadow: 2px 2px gray;
+    box-shadow: 1px 1px gray;
     padding: 20px 50px 40px 50px;
     transition: 0.3s;
 }
 .info-card:hover {
         background-color:rgb(89, 131, 247);
-        box-shadow: 10px 5px 8px 2px rgb(53, 52, 52);
+        box-shadow: 5px 5px rgb(53, 52, 52);
         color: var(--primary-black);
         transform: scale(1.1);
         z-index: 1;
@@ -136,6 +131,12 @@
 }
 .weather-icon.sunny::before {    
     background-image: url('../assets/Weather_icons/sunnyIcon.svg');
+}
+.weather-icon.cloudy::before {    
+    background-image: url('../assets/Weather_icons/cloudyIcon.svg');
+}
+.weather-icon.rainy::before {    
+    background-image: url('../assets/Weather_icons/rainyIcon.svg');
 }
 .weather-icon.humidity::before {    
     background-image: url('../assets/Weather_icons/humidityIcon.svg');
