@@ -31,18 +31,22 @@
 }
 .continent-card {
     background-color: var(--bg-grey-tile);
+    border-radius: 30px;
+    box-shadow: 1px 1px gray;
     justify-self: center;
     padding: 15px;
     transition: 0.3s;
-    width: 300px;
+    width: 320px;
 }
 .continent-card > p:nth-child(2) {
     padding-top: 20px;
 } 
  .continent-card:hover {
     background-color:rgb(102, 142, 250);
+    box-shadow: 5px 5px rgb(53, 52, 52);
     color: black;
-    transform: scale(1.1);    
+    transform: scale(1.1); 
+    font-weight: 500;   
 }
 .continent-name {
     color: yellow;
@@ -55,10 +59,6 @@
 .continent-temperature,
 .continent-humidity {
     float: right;
-}
-.continent-humidity {
-    left: 3em;
-    position:relative;
 }
 .humidity-icon {
     animation: swing 3s infinite;
