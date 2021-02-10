@@ -5,7 +5,7 @@
     <title>Weather App</title>
     <link rel="shortcut icon" type="image/png" href="./assets/General_icons/favicon.png">
     <link rel="stylesheet" href="styles/weather-app-style.css">
-    <script type="module" src="./scripts/weather-app-script.js" defer></script>
+    <script type="module" src="./scripts/weather-app-script.js"></script>
   </head>
   <body>
     <!--Container for top section-->
@@ -20,8 +20,10 @@
             <datalist id="city-names">
               
             </datalist>
-            <div id="invalid-city" style="color: red;">*Select a Valid City Name</div>
+            <div id="invalid-city" style="color: red; visibility: hidden;">*Select a Valid City Name</div>
+    
         </form>
+        
         <div class="blank-icon-space"></div>
         <!--Time and date-->
         <div class="time-stamp">
@@ -29,9 +31,9 @@
             <span class="hour-min">10:10</span> 
             <span class="white-text">:</span>
             <span class="second">44</span> 
-            <img class="state" title="" src="./assets/General_icons/amState.svg" alt="AM/PM state icon">
+            <img class="state" title="AM" src="./assets/General_icons/amState.svg" alt="AM/PM state icon">
           </div>
-          <p class="date white-text" title="">01-Mar-2020</p>
+          <p class="date white-text" title="March 1, 2020">01-Mar-2020</p>
         </div>
       </div>
       <!--Temperature in celsius & Humidity-->
@@ -56,47 +58,7 @@
       </div>
       <!--Timeline for next few hours-->
       <div class="timeline">
-        <div class="wrapper-time">
-          <div class="time">NOW</div>
-          <div class="down">|</div>
-          <div class="climate-icon"><img src="./assets/Weather_icons/cloudyIcon.svg" alt="cloud"></div>
-          <div class="value">6</div>
-        </div>
-        <div class="seperator"> | </div>
-        <div class="wrapper-time">
-          <div class="time">11 AM</div>
-          <div class="down">|</div>
-          <div class="climate-icon"><img src="./assets/Weather_icons/rainyIcon.svg" alt="rain"></div>
-          <div class="value">7</div>
-        </div>
-        <div class="seperator"> | </div>
-        <div class="wrapper-time">
-          <div class="time">12 PM</div>
-          <div class="down">|</div>
-          <div class="climate-icon"><img src="./assets/Weather_icons/windyIcon.svg" alt="wind"></div>
-          <div class="value">7</div>
-        </div>
-        <div class="seperator"> | </div>
-        <div class="wrapper-time">
-          <div class="time">1 PM</div>
-          <div class="down">|</div>
-          <div class="climate-icon"><img src="./assets/Weather_icons/rainyIcon.svg" alt="rain"></div>
-          <div class="value">8</div>
-        </div>
-        <div class="seperator"> | </div>
-        <div class="wrapper-time">
-          <div class="time">2 PM</div>
-          <div class="down">|</div>
-          <div class="climate-icon"><img src="./assets/Weather_icons/windyIcon.svg" alt="wind"></div>
-          <div class="value">8</div>
-        </div>
-        <div class="seperator"> | </div>
-        <div class="wrapper-time">
-          <div class="time">3 PM</div>
-          <div class="down">|</div>
-          <div class="climate-icon"><img src="./assets/Weather_icons/rainyIcon.svg" alt="rain"></div>
-          <div class="value">6</div>
-        </div>
+        
       </div>
     </section>
     <!--Middle part container-->
@@ -140,19 +102,19 @@
           <!--Sort options-->
           <span class="sort">
             <span class="option">
-              <span><p>Continent Name</p></span>
-              <span><img class="sort-icon continent" data-option="continent" title="Click to sort in Ascending Order" src="./assets/General_icons/arrowUp.svg" alt="Descending order"></span>
+              <span><p>Continent Name</p></span>     
+              <span><img class="sort-icon continent" sort-option="descending" data-option="continent" title="Click to sort in Ascending Order" src="./assets/General_icons/arrowUp.svg" alt="Descending order"></span>
             </span>
             <span class="option">
-              <span><p>Temperature</p></span>
-              <span><img class="sort-icon temperature" data-option="temperature" title="Click to sort in Ascending Order" src="./assets/General_icons/arrowUp.svg" alt="Ascending order"></span>
+              <span><p>Temperature</p></span>          
+              <span><img class="sort-icon temperature" sort-option="descending" data-option="temperature" title="Click to sort in Ascending Order" src="./assets/General_icons/arrowUp.svg" alt="Ascending order"></span>
             </span>
-          </span>
+          </span>  
         </div> 
-        <!--Continent Weather Info cards-->
-        <div class="continent-info-cards">
-          
-        </div> 
+         <!--Continent Weather Info cards-->
+         <div class="continent-info-cards">
+
+          </div>
       </section>        
     </section>
   </body>

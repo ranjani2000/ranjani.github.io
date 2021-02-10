@@ -1,151 +1,157 @@
-.multiple-city-info {  
-    background-color: black;
-    border-top: 1px solid var(--primary-black);
-    border-radius: 2em;
-    padding: 10px;
-    position: relative;
-    top: -30px;
+.multiple-city-info {
+  background-color: black;
+  border-top: 1px solid var(--primary-black);
+  border-radius: 2em;
+  padding: 10px;
+  position: relative;
+  top: -30px;
 }
 .sticky-climate-options {
-    position: absolute;
-    right: 30px;
-    top: 20px;  
+  position: absolute;
+  right: 30px;
+  top: 20px;
 }
 .option-icon {
-    cursor: pointer;
-    margin: 10px;
-    padding-bottom: 10px;
-    width: 30px;
+  cursor: pointer;
+  margin: 10px;
+  padding-bottom: 10px;
+  width: 30px;
 }
 .sticky-climate-options .active {
-    border-bottom: 2px solid var(--light-blue-border);
+  border-bottom: 2px solid var(--light-blue-border);
 }
 .display-top {
-    bottom: 30px;
-    font-family: 'Roboto';
-    margin: 10px;
-    position: relative;
+  bottom: 30px;
+  font-family: "Roboto";
+  margin: 10px;
+  position: relative;
 }
 .display-top input[type="number"] {
-    background: var(--bg-input-box);
-    border: none;
-    font-size: 14px;
-    margin-left: 10px;
-    outline: none;
-    text-align: center;
-    width: 40px;
+  background: var(--bg-input-box);
+  border: none;
+  font-size: 14px;
+  margin-left: 10px;
+  outline: none;
+  text-align: center;
+  width: 40px;
 }
-.display-top input[type=number]::-webkit-inner-spin-button, 
-.display-top input[type=number]::-webkit-outer-spin-button {  
-    cursor: pointer;
-    opacity: 1;
+.display-top input[type="number"]::-webkit-inner-spin-button,
+.display-top input[type="number"]::-webkit-outer-spin-button {
+  cursor: pointer;
+  opacity: 1;
 }
 .weather-flex-cards {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 50px;
-    margin-top: 20px;
-    overflow-y: auto;
-    padding: 50px;
-    width: calc(100vw - 170px);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 50px;
+  margin-top: 20px;
+  overflow-y: auto;
+  padding: 50px;
+  width: calc(100vw - 170px);
 }
 .weather-flex-cards::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 .left-arrow,
 .right-arrow {
-    cursor: pointer;
-    position: absolute;
-    top: 290px;
-    z-index: 2;
+  cursor: pointer;
+  position: absolute;
+  top: 290px;
+  z-index: 2;
 }
 .left-arrow {
-    left:15px;
+  left: 15px;
 }
 .right-arrow {
-    right: 15px;
+  right: 15px;
 }
 .left-arrow-icon,
 .right-arrow-icon {
-    background-color: #d0d0d0;
-    box-sizing: border-box;
-    border-radius: 50%;
-    padding: 10px;
-    transition: width 0.2s;
-    width: 33px;
+  background-color: #d0d0d0;
+  box-sizing: border-box;
+  border-radius: 50%;
+  padding: 10px;
+  transition: width 0.2s;
+  width: 33px;
 }
 .left-arrow-icon:hover,
 .right-arrow-icon:hover {
-    width: 50px;
+  width: 50px;
 }
 .info-card {
-    background: var(--bg-dark-grey-tile) url('../assets/City_icons/kolkata.svg') no-repeat right bottom;
-    background-size: 45% 45%;
-    border: 1px solid var(--primary-black);
-    border-radius: 30px;
-    box-shadow: 1px 1px gray;
-    padding: 20px 50px 40px 50px;
-    transition: 0.3s;
+  background: var(--bg-dark-grey-tile) url("../assets/City_icons/kolkata.svg")
+    no-repeat right bottom;
+  background-size: 45% 45%;
+  border: 1px solid var(--primary-black);
+  border-radius: 30px;
+  box-shadow: 1px 1px gray;
+  padding: 20px 50px 40px 50px;
+  transition: 0.3s;
+  width: 200px;
 }
 .info-card:hover {
-        background-color:rgb(89, 131, 247);
-        box-shadow: 5px 5px rgb(53, 52, 52);
-        color: var(--primary-black);
-        transform: scale(1.1);
-        z-index: 1;
+  background-color: rgb(89, 131, 247);
+  box-shadow: 5px 5px rgb(53, 52, 52);
+  font-weight: 500;
+  color: var(--primary-black);
+  transform: scale(1.1);
+  z-index: 1;
 }
 .info-card p {
-    margin-top: 25px;
-    width: max-content;
+  margin-top: 25px;
+  width: 250px;
 }
 .city-info.name {
-    font-family: 'Roboto';
+  font-family: "Roboto";
 }
 .name {
-    font-size: 24px;
-    font-weight: 500;
-    padding-right: 30px;
+  font-size: 24px;
+  font-weight: 500;
+  padding-right: 30px;
 }
 .weather-icon {
-    padding-left: 20px;
-    position: relative;
+  padding-left: 20px;
+  position: relative;
 }
 .weather-icon.first-row {
-    font-size: 24px;
-    font-weight: 400;
+  float: right;
+  font-size: 24px;
+  font-weight: 400;
+  padding-right:12px;
 }
 .weather-icon.first-row::before {
-    height: 25px;
-    left: -10px;
-    width: 25px;
+  height: 25px;
+  left: -10px;
+  width: 25px;
 }
-.weather-icon::before{
-    animation: swing 3s infinite;
-    background-size: 100% 100%;
-    content: "";
-    height: 20px;
-    left: -5px;
-    position: absolute;
-    top: 0px;
-    width: 20px;
+.weather-icon::before {
+  animation: swing 3s infinite;
+  background-size: 100% 100%;
+  content: "";
+  height: 20px;
+  left: -5px;
+  position: absolute;
+  top: 0px;
+  width: 20px;
 }
-.weather-icon.sunny::before {    
-    background-image: url('../assets/Weather_icons/sunnyIcon.svg');
+.weather-icon.sunny::before {
+  background-image: url("../assets/Weather_icons/sunnyIcon.svg");
 }
-.weather-icon.cloudy::before {    
-    background-image: url('../assets/Weather_icons/cloudyIcon.svg');
+.weather-icon.humidity::before {
+  background-image: url("../assets/Weather_icons/humidityIcon.svg");
 }
-.weather-icon.rainy::before {    
-    background-image: url('../assets/Weather_icons/rainyIcon.svg');
+.weather-icon.cloudy::before {
+  background-image: url("../assets/Weather_icons/cloudyIcon.svg");
 }
-.weather-icon.humidity::before {    
-    background-image: url('../assets/Weather_icons/humidityIcon.svg');
+
+.weather-icon.rainy::before {
+  background-image: url("../assets/Weather_icons/rainyIcon.svg");
 }
-.weather-icon.percipitation::before {    
-    background-image: url('../assets/Weather_icons/precipitationIcon.svg');
+.weather-icon.precipitation::before {
+  background-image: url("../assets/Weather_icons/precipitationIcon.svg");
 }
 .info-card .date,
-.info-card  .time {
-    font-size: 18px;
-    font-weight: 500;
+.info-card .time {
+  font-size: 18px;
+  font-weight: 500;
 }

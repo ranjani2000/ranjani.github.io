@@ -17,7 +17,7 @@
     width: 100px;
 }
 .city-icon img {
-    width: 100%;
+    width:100%;
 }
 .select-city-input input {
     background: var(--bg-input-box);
@@ -97,7 +97,7 @@ img.state {
     padding-bottom: 10px;
 }
 .down {
-    padding-bottom: 10px;;
+    padding-bottom: 10px;
 }
 .climate-icon {
     height: 40px;
