@@ -1,7 +1,7 @@
 "use strict";
 
 import { cityinformation } from "./utility.js";
-import { citydata } from "./city-data.js";
+import { extractweather } from "./support.js";
 
 let continentcards = document.querySelector(".continent-info-cards");
 let temperaturewise = document.querySelector(".sort-icon.temperature");
@@ -40,19 +40,19 @@ function updatecontinentcard() {
   let cities;
   let continentsort = continentwise.getAttribute("sort-option");
   let temperaturesort = temperaturewise.getAttribute("sort-option");
-  citydata().then(function (data) {
+  extractweather().then(function (data) {
     let displaycount = 0;
-    cities = Object.keys(data).reduce((accumulator, city) => {
-      let continent = data[city].timeZone.split("/")[0];
+    cities = data.reduce((accumulator, city) => {
+      let continent = city.timeZone.split("/")[0];
       if (accumulator.has(continent)) {
         let cityList = accumulator.get(continent);
-        cityList.push(new cityinformation(city, data[city]));
+        cityList.push(new cityinformation(city));
         accumulator.set(
           continent,
           cityList.sort((a, b) => a.temperature - b.temperature)
         );
       } else {
-        accumulator.set(continent, [new cityinformation(city, data[city])]);
+        accumulator.set(continent, [new cityinformation(city)]);
       }
       return accumulator;
     }, new Map());

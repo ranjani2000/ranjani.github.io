@@ -141,7 +141,7 @@
   background-image: url("../assets/Weather_icons/humidityIcon.svg");
 }
 .weather-icon.cloudy::before {
-  background-image: url("../assets/Weather_icons/cloudyIcon.svg");
+  background-image: url("../assets/Weather_icons/snowflakeIcon.svg");
 }
 
 .weather-icon.rainy::before {

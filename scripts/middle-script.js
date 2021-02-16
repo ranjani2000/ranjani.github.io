@@ -1,7 +1,7 @@
 "use strict";
 
 import { cityinformation } from "./utility.js";
-import { citydata } from "./city-data.js";
+import { extractweather } from "./support.js";
 
 let optedweather = document.querySelectorAll(".option-icon");
 let viewcount = document.querySelector(".display-top input");
@@ -16,7 +16,6 @@ viewcount.addEventListener("change", cityweatherinfo);
 movefront.addEventListener("click", function () {
   cards.scrollBy(300, 0);
 });
-
 moveback.addEventListener("click", function () {
   cards.scrollBy(-300, 0);
 });
@@ -31,7 +30,7 @@ function change() {
   icon = this;
   cityweatherinfo();
 }
-cityweatherinfo.call();
+cityweatherinfo();
 setInterval(updateweather, 60000);
 function updateweather() {
   cityweatherinfo();
@@ -41,15 +40,15 @@ function updateweather() {
  * Displays the data split into various weather categories
  */
 function cityweatherinfo() {
-  citydata().then((data) => {
+  extractweather().then((data) => {
     let toshow = 0;
     let type = icon.getAttribute("data-category");
     let citiesmap = new Map();
     let typedata = [];
     let showinfo;
     let displayparameter;
-    for (let city in data) {
-      citiesmap.set(city, new cityinformation(city, data[city]));
+    for (let city of data) {
+      citiesmap.set(city, new cityinformation(city));
       typedata.push({
         cityName: city,
         type: citiesmap.get(city).weatherfilter(),
@@ -79,60 +78,60 @@ function cityweatherinfo() {
     });
     cards.innerHTML = "";
     for (let city of showinfo) {
-      cards.innerHTML += infocards(citiesmap.get(city.cityName));
+      cards.innerHTML += weatherInfoCard(citiesmap.get(city.cityName));
       if (++toshow == viewcount.value) break;
     }
-    cards.dispatchEvent(new Event("scroll"));
+    scroll();
     /**
      * Renders the preferred weather information
-     * @param {Object} citydata Collection of information on particular weather category
+     * @param {object} citydata Collection of information on particular weather category
      */
-    function infocards(citydata) {
+    function weatherInfoCard(citydata) {
       let dateTime = citydata.timestamp();
-      let icon = `assets/City_icons/${citydata.key}.svg`;
+      let icon = `assets/City_icons/${citydata.name.toLowerCase()}.svg`;
       return `<div  class="info-card" style="background-image: url('${icon}')">
-             <p class="city--info">
-                  <span class="name">${citydata.name}</span>
-                  <span class="weather-icon ${type} first-row">
-                    ${citydata.temperature} &deg;C
-                  </span>
-                </p>
-                <p class="time">
-                  ${dateTime.hours}:
-                  ${dateTime.minutes} ${dateTime.amPm.toUpperCase()}
-                </p>
-                <p class="date">
-                  ${dateTime.date}-${dateTime.month}-${dateTime.year}
-                </p>
-                <p class="weather-icon humidity">
-                  ${citydata.humidity} %
-                </p>
-                <p class="weather-icon precipitation">
-                  ${citydata.precipitation} %
-                </p>
-            </div>`;
+                  <p class="city-info">
+                    <span class="name">${citydata.name}</span>
+                    <span class="weather-icon ${type} first-row">
+                      ${citydata.temperature} &deg;C
+                    </span>
+                  </p>
+                  <p class="time">
+                    ${dateTime.hours}:
+                    ${dateTime.minutes} ${dateTime.amPm.toUpperCase()}
+                  </p>
+                  <p class="date">
+                    ${dateTime.date}-${dateTime.month}-${dateTime.year}
+                  </p>
+                  <p class="weather-icon humidity">
+                    ${citydata.humidity} %
+                  </p>
+                  <p class="weather-icon precipitation">
+                    ${citydata.precipitation} %
+                  </p>
+              </div>`;
     }
   });
-}
-/**
- * Enables scrolling on content overflow
- */
-function scroll() {
-  if (cards.scrollWidth == cards.clientWidth) {
-    movefront.style.display = "none";
-    moveback.style.display = "none";
-    return;
-  } else if (
-    cards.scrollWidth <= Math.round(cards.clientWidth + cards.scrollLeft)
-  ) {
-    movefront.style.display = "none";
-    moveback.style.display = "inline";
-  } else if (cards.scrollLeft == 0) {
-    movefront.style.display = "inline";
-    moveback.style.display = "none";
-  } else {
-    movefront.style.display = "inline";
-    moveback.style.display = "inline";
+  /**
+   * Enables scrolling on content overflow
+   */
+  function scroll() {
+    if (cards.scrollWidth == cards.clientWidth) {
+      movefront.style.display = "none";
+      moveback.style.display = "none";
+      return;
+    } else if (
+      cards.scrollWidth <= Math.round(cards.clientWidth + cards.scrollLeft)
+    ) {
+      movefront.style.display = "none";
+      moveback.style.display = "inline";
+    } else if (cards.scrollLeft == 0) {
+      movefront.style.display = "inline";
+      moveback.style.display = "none";
+    } else {
+      movefront.style.display = "inline";
+      moveback.style.display = "inline";
+    }
+    cards.style.justifyContent = "flex-start";
   }
-  cards.style.justifyContent = "flex-start";
 }

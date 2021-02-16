@@ -1,7 +1,7 @@
 "use strict";
 
 import { userselection, changeEvent } from "./utility.js";
-import { citydata } from "./city-data.js";
+import { extractweather, nexthour } from "./support.js";
 
 let inputcity = {
   icon: document.querySelector(".select-city .city-icon img"),
@@ -10,7 +10,7 @@ let inputcity = {
   hourminutes: document.querySelector(".time-stamp .hour-min"),
   seconds: document.querySelector(".time-stamp .second"),
   timestate: document.querySelector(".time-stamp .state"),
-  tcelsius: document.querySelector(".current-weather .t-celcius strong"),
+  tcelcius: document.querySelector(".current-weather .t-celcius strong"),
   tfahrenheit: document.querySelector(".current-weather .t-farenheit strong"),
   humidity: document.querySelector(".current-weather .humidity strong"),
   precipitation: document.querySelector(
@@ -19,21 +19,30 @@ let inputcity = {
   timeline: document.querySelector(".timeline"),
 };
 let invalid = document.getElementById("invalid-city");
-let city = citydata();
-city.then(function (result) {
-  let isinput = false;
-  for (let city in result) {
-    let option = document.createElement("option");
-    option.value = city.capitalize();
-    document.getElementById("city-names").appendChild(option);
-    if (!isinput) {
-      inputcity.input.value = option.value;
-      inputcity.city = new userselection(city, result[city]);
-      inputcity.input.dispatchEvent(changeEvent);
-      isinput = true;
+let weatherdatapromise = extractweather();
+let cityMap = new Map();
+weatherdatapromise
+  .then(function (data) {
+    let isinput = false;
+    for (let city of data) {
+      let option = document.createElement("option");
+      option.value = city.cityName;
+      document.getElementById("city-names").appendChild(option);
+      cityMap.set(city.cityName, city);
+      if (!isinput) {
+        inputcity.input.value = option.value;
+        nexthour(city.cityName, 5).then((result) => {
+          city.nextFiveHrs = result.temperature;
+          inputcity.city = new userselection(city);
+          inputcity.input.dispatchEvent(changeEvent);
+        });
+        isinput = true;
+      }
     }
-  }
-});
+  })
+  .catch(() => {
+    alert("Please try reloading the page.");
+  });
 setInterval(displaydata, 1000);
 inputcity.input.addEventListener("input", validate);
 inputcity.input.addEventListener("change", inputvalidation);
@@ -50,15 +59,15 @@ function displaydata(isrefresh = false) {
   if (inputcity.city == undefined) return;
   else now = inputcity.city.timestamp();
   const predict = () => {
-    citydata().then(function (result) {
-      let city = inputcity.city.key;
-      city != "" && predict(result[city]);
+    weatherdatapromise.then(() => {
+      let city = inputcity.city.name;
+      city != "" && updateforecast();
     });
   };
   const updateinfo = () => {
-    citydata().then(function (result) {
-      let city = inputcity.city.key;
-      city != "" && updateinfo(result[city]);
+    weatherdatapromise.then(() => {
+      let city = inputcity.city.name;
+      city != "" && updateweather();
     });
   };
   const eachsecond = () => {
@@ -90,20 +99,24 @@ function displaydata(isrefresh = false) {
   }
 }
 /**
- * Validates the input city name
+ * Validate the input city name
  */
 function validate() {
-  let cityName = inputcity.input.value.toLowerCase();
-  city.then(function (result) {
-    let isSubsetOfCity = false;
-    for (let city in result) {
-      if (city.includes(cityName)) {
-        isSubsetOfCity = true;
-        break;
+  let cityName = inputcity.input.value;
+  weatherdatapromise
+    .then(function () {
+      let isSubsetOfCity = false;
+      for (let city of cityMap.keys()) {
+        if (city.includes(cityName)) {
+          isSubsetOfCity = true;
+          break;
+        }
       }
-    }
-    isSubsetOfCity ? hideerrormsg() : showerrormsg();
-  });
+      isSubsetOfCity ? hideerrormsg() : showerrormsg();
+    })
+    .catch(() => {
+      alert("Please try reloading the page.");
+    });
 }
 /**
  * Prompts the user for invalid input
@@ -117,28 +130,34 @@ function hideerrormsg() {
   invalid.style.visibility = "hidden";
 }
 function inputvalidation() {
-  let cityName = inputcity.input.value.toLowerCase();
-  city.then(function (result) {
-    if (cityName in result) {
-      inputcity.city = new userselection(cityName, result[cityName]);
-      inputcity.input.placeholder = "";
-      updateinfo(result[cityName]);
-      predict(result[cityName]);
-    } else {
-      inputcity.input.value = inputcity.city.key.capitalize();
-      hideerrormsg();
-    }
-  });
+  let cityName = inputcity.input.value;
+  weatherdatapromise
+    .then(function () {
+      if (cityMap.has(cityName)) {
+        nexthour(cityName, 5).then((result) => {
+          let city = cityMap.get(cityName);
+          city.nextFiveHrs = result.temperature;
+          inputcity.city = new userselection(city);
+          updateweather();
+          updateforecast();
+        });
+      } else {
+        inputcity.input.value = inputcity.city.name;
+        hideerrormsg();
+      }
+    })
+    .catch((err) => {
+      alert("Please try reloading the page.");
+    });
 }
 /**
  * Displays the weather information of selected city
  */
-function updateinfo() {
+function updateweather() {
   displaydata(true);
   inputcity.icon.style.display = "block";
-  inputcity.icon.title = inputcity.city.cityName;
-  inputcity.icon.src = `assets/City_icons/${inputcity.city.key}.svg`;
-  inputcity.tcelsius.innerHTML = inputcity.city.temperature + " &degC";
+  inputcity.icon.src = `assets/City_icons/${inputcity.city.name.toLowerCase()}.svg`;
+  inputcity.tcelcius.innerHTML = inputcity.city.temperature + " &degC";
   inputcity.tfahrenheit.innerHTML = `${inputcity.city.getFahrenheit()} F`;
   inputcity.humidity.innerHTML = inputcity.city.humidity;
   inputcity.precipitation.innerHTML = inputcity.city.precipitation;
@@ -146,12 +165,12 @@ function updateinfo() {
 /**
  * Updates the next 5 hours forecast of selected city
  */
-function predict() {
+function updateforecast() {
   let forecastDetails = inputcity.city.nexthour();
   inputcity.timeline.innerHTML = forecast(forecastDetails[0]);
-  for (let initial = 1; initial < forecastDetails.length; initial++) {
+  for (let nThHour = 1; nThHour < forecastDetails.length; nThHour++) {
     inputcity.timeline.innerHTML +=
-      `<div class="seperator"> | </div>` + forecast(forecastDetails[initial]);
+      `<div class="seperator"> | </div>` + forecast(forecastDetails[nThHour]);
   }
 }
 /**
@@ -162,13 +181,15 @@ function predict() {
 function forecast(forecast) {
   let climateicon = forecast.weather == "sunny" ? "Black" : "";
   return `
-          <div class="wrapper-time">
-            <div class="time"><p>${forecast.hour}</p></div>
-            <div class="down">|</div>
-            <div class="climate-icon">
-              <img src="./assets/Weather_icons/${forecast.weather}Icon${climateicon}.svg" alt="${forecast.weather} icon">
-              </img>
-            </div>
-            <div class="value">${forecast.temperature}</div>
-          </div>`;
+        <div class="wrapper-time">
+          <div class="time"><p>${forecast.hour}</p></div>
+          <div class="down">|</div>
+          <div class="cliamte-icon">
+            <img src="assets/Weather_icons/${forecast.weather}Icon${climateicon}.svg" 
+              title="${forecast.weather}" 
+              alt="${forecast.weather} icon">
+            </img>
+          </div>
+          <div class="value">${forecast.temperature}</div>
+        </div>`;
 }
